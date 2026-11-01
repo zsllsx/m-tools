@@ -1,0 +1,46 @@
+@use 'variables' as *;
+
+// ---------------------------------------------------------------
+// 运行时主题变量：浅色 / 深色两套，组件里统一通过 var(--mt-*) 使用
+// ---------------------------------------------------------------
+:root {
+  color-scheme: light;
+
+  // 页面装饰
+  --mt-hero-bg: radial-gradient(900px 320px at 12% -10%, rgba(79, 124, 255, 0.16), transparent 70%),
+    radial-gradient(700px 300px at 88% -20%, rgba(139, 92, 246, 0.14), transparent 70%);
+  --mt-header-bg: rgba(255, 255, 255, 0.82);
+  --mt-shadow-card: 0 12px 28px rgba(79, 124, 255, 0.14);
+  --mt-shadow-brand: 0 4px 12px rgba(79, 124, 255, 0.32);
+  --mt-shadow-chip: 0 6px 16px rgba(79, 124, 255, 0.28);
+
+  // 覆盖 Element Plus 主色，保持与品牌渐变一致
+  // -rgb 用于 Element Plus 内部 rgba() 计算，需同步修改
+  --el-color-primary: #{$primary};
+  --el-color-primary-rgb: 79, 124, 255;
+  --el-color-primary-light-3: #7d9cff;
+  --el-color-primary-light-5: #a5bbff;
+  --el-color-primary-light-7: #ccd9ff;
+  --el-color-primary-light-8: #dde5ff;
+  --el-color-primary-light-9: #eef2ff;
+  --el-color-primary-dark-2: #{$primary-dark};
+  --el-border-radius-base: #{$radius-sm};
+  --el-border-radius-small: 6px;
+}
+
+html.dark {
+  color-scheme: dark;
+
+  --mt-hero-bg: radial-gradient(900px 320px at 12% -10%, rgba(79, 124, 255, 0.24), transparent 70%),
+    radial-gradient(700px 300px at 88% -20%, rgba(139, 92, 246, 0.2), transparent 70%);
+  --mt-header-bg: rgba(20, 22, 28, 0.76);
+  --mt-shadow-card: 0 12px 28px rgba(0, 0, 0, 0.45);
+  --mt-shadow-brand: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --mt-shadow-chip: 0 6px 16px rgba(0, 0, 0, 0.4);
+
+  --el-color-primary-light-3: #3d63d9;
+  --el-color-primary-light-5: #2f4da8;
+  --el-color-primary-light-7: #243b80;
+  --el-color-primary-light-8: #1e3068;
+  --el-color-primary-light-9: #182550;
+}

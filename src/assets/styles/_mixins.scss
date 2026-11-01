@@ -1,0 +1,92 @@
+@use 'sass:map';
+@use 'variables' as *;
+
+// ---------------- 响应式 ----------------
+// 用法：@include mobile { ... }
+$breakpoints: (
+  'sm': $breakpoint-sm,
+  'md': $breakpoint-md
+);
+
+@mixin respond($name) {
+  $width: map.get($breakpoints, $name);
+
+  @if $width {
+    @media (max-width: #{$width}) {
+      @content;
+    }
+  } @else {
+    @error '未知断点 `#{$name}`，可用断点：#{$breakpoints}';
+  }
+}
+
+@mixin mobile {
+  @include respond('sm') {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @include respond('md') {
+    @content;
+  }
+}
+
+// ---------------- 布局与外观 ----------------
+// 卡片容器：边框 + 圆角 + 跟随主题的背景
+@mixin card-surface($radius-value: $radius) {
+  border: 1px solid var(--el-border-color-lighter);
+  border-radius: $radius-value;
+  background-color: var(--el-bg-color-overlay);
+}
+
+// 悬浮上浮交互
+@mixin hover-lift($offset: -3px) {
+  transition: transform $duration $ease, box-shadow $duration $ease, border-color $duration $ease;
+
+  &:hover {
+    transform: translateY($offset);
+  }
+}
+
+// 键盘可见焦点
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--el-color-primary);
+    outline-offset: 2px;
+  }
+}
+
+// 品牌渐变图标块
+@mixin icon-tile($size: 38px, $radius-value: $radius-md) {
+  display: grid;
+  place-items: center;
+  width: $size;
+  height: $size;
+  border-radius: $radius-value;
+  color: var(--el-color-primary);
+  background: linear-gradient(135deg, var(--el-color-primary-light-8), var(--el-color-primary-light-9));
+}
+
+// 渐变文字
+@mixin gradient-text {
+  background: $gradient-primary;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+// ---------------- 文本 ----------------
+@mixin ellipsis($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  } @else {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $lines;
+    line-clamp: $lines;
+    overflow: hidden;
+  }
+}
