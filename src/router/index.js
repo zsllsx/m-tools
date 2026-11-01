@@ -28,6 +28,12 @@ const routes = [
         meta: { title: '关于' }
       },
       {
+        path: 'tools/pinyin-worksheet',
+        name: 'tool-pinyin-worksheet',
+        component: () => import('@/views/tools/PinyinWorksheet.vue'),
+        meta: { title: '看拼音写词语' }
+      },
+      {
         path: 'tools/:key',
         name: 'tool',
         component: () => import('@/views/ToolView.vue'),

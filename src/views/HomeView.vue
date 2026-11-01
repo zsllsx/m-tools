@@ -2,7 +2,7 @@
 import { computed, ref } from 'vue'
 import { Search } from '@element-plus/icons-vue'
 import appConfig from '@/config/app'
-import { categories, tools } from '@/config/tools'
+import { categories, visibleTools } from '@/config/tools'
 import ToolCard from '@/components/ToolCard.vue'
 
 const keyword = ref('')
@@ -16,7 +16,7 @@ const categoryOptions = computed(() => [
 const keywordText = computed(() => keyword.value.trim().toLowerCase())
 
 const filteredTools = computed(() =>
-  tools.filter((tool) => {
+  visibleTools.filter((tool) => {
     const matchCategory = activeCategory.value === 'all' || tool.category === activeCategory.value
     if (!matchCategory) return false
     if (!keywordText.value) return true
@@ -25,10 +25,10 @@ const filteredTools = computed(() =>
   })
 )
 
-const readyCount = computed(() => tools.filter((tool) => tool.status === 'ready').length)
+const readyCount = computed(() => visibleTools.filter((tool) => tool.status === 'ready').length)
 
 function countOf(key) {
-  return key === 'all' ? tools.length : tools.filter((tool) => tool.category === key).length
+  return key === 'all' ? visibleTools.length : visibleTools.filter((tool) => tool.category === key).length
 }
 
 function resetFilters() {
@@ -58,17 +58,19 @@ function resetFilters() {
         </div>
 
         <div class="hero__stats">
-          <span>共 <b>{{ tools.length }}</b> 个工具</span>
-          <i class="dot"></i>
-          <span>已上线 <b>{{ readyCount }}</b> 个</span>
-          <i class="dot"></i>
+          <template v-if="visibleTools.length">
+            <span>共 <b>{{ visibleTools.length }}</b> 个工具</span>
+            <i class="dot"></i>
+            <span>已上线 <b>{{ readyCount }}</b> 个</span>
+            <i class="dot"></i>
+          </template>
           <span>纯前端运行，数据不出本地</span>
         </div>
       </div>
     </section>
 
     <section class="mt-container body">
-      <div class="chips">
+      <div v-if="visibleTools.length" class="chips">
         <button
           v-for="item in categoryOptions"
           :key="item.key"
@@ -86,9 +88,11 @@ function resetFilters() {
         <ToolCard v-for="tool in filteredTools" :key="tool.key" :tool="tool" />
       </div>
 
-      <el-empty v-else description="没有找到匹配的工具，换个关键词试试">
+      <el-empty v-else-if="visibleTools.length" description="没有找到匹配的工具，换个关键词试试">
         <el-button type="primary" plain @click="resetFilters">重置筛选</el-button>
       </el-empty>
+
+      <el-empty v-else description="工具正在建设中，首个小工具即将上线" />
     </section>
   </div>
 </template>

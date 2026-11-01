@@ -17,6 +17,11 @@ const statusText = computed(() => (props.tool.status === 'ready' ? '可用' : '�
 const statusType = computed(() => (props.tool.status === 'ready' ? 'success' : 'info'))
 
 function openTool() {
+  if (props.tool.route) {
+    router.push({ name: props.tool.route })
+    return
+  }
+
   router.push({ name: 'tool', params: { key: props.tool.key } })
 }
 </script>
