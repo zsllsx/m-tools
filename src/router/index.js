@@ -34,6 +34,12 @@ const routes = [
         meta: { title: '看拼音写词语' }
       },
       {
+        path: 'tools/docx-to-image',
+        name: 'tool-docx-to-image',
+        component: () => import('@/views/tools/DocxToImage.vue'),
+        meta: { title: 'Word 转长图' }
+      },
+      {
         path: 'tools/:key',
         name: 'tool',
         component: () => import('@/views/ToolView.vue'),

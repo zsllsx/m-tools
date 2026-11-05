@@ -12,6 +12,7 @@
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.2",
     "@fontsource/andika": "^5.3.0",
+    "docx-preview": "^0.4.1",
     "element-plus": "^2.14.7",
     "html-to-image": "^1.11.13",
     "pinyin-pro": "^3.29.5",

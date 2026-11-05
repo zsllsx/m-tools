@@ -1,5 +1,5 @@
 import { markRaw } from 'vue'
-import { EditPen, Tools } from '@element-plus/icons-vue'
+import { EditPen, Picture } from '@element-plus/icons-vue'
 
 /**
  * 工具分类。首页筛选与工具卡片标签统一使用这里的 key。
@@ -40,16 +40,15 @@ export const tools = [
     status: 'ready',
     route: 'tool-pinyin-worksheet'
   },
-  // 空占位：新增工具时按此格式补充配置，并删除本项
   {
-    key: 'placeholder',
-    name: '工具占位',
-    desc: '工具正在建设中，后续会在这里陆续上线。',
-    icon: markRaw(Tools),
-    category: 'other',
-    tags: ['占位'],
-    status: 'planned',
-    placeholder: true
+    key: 'docx-to-image',
+    name: 'Word 转长图',
+    desc: '把 .docx 逐页渲染为图片，自动裁掉页边空白后竖向拼接成一张长图，纯本地解析。',
+    icon: markRaw(Picture),
+    category: 'convert',
+    tags: ['Word', 'docx', '长图', '图片', '拼接', '裁边', '格式转换'],
+    status: 'ready',
+    route: 'tool-docx-to-image'
   }
 ]
 
